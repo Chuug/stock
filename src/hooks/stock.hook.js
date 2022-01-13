@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import StockService from '../services/stock-service'
 
 const useStock = () => {
-   const [stock, setStock] = useState('hello fdp')
+   const [stock, setStock] = useState()
 
    useEffect(() => {
-      async function getStock() {
-         const response = await fetch("http://localhost:3001/items")
-         let json = await response.json()
-         return json
-      }
-
-      //getStock().then(items => setStock(items))
-   })
+      let newStock = {}
+      StockService.getStock().then(stock => {
+         stock.forEach((i) => {
+            Object.defineProperty(newStock, i.barcode, {value: i})
+         })
+         setStock(newStock)
+      })
+   },[])
 
    return stock
 }

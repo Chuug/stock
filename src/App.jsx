@@ -1,34 +1,26 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import CardItem from './components/card-item';
 import useStock from './hooks/stock.hook';
-
-const stock = {
-   '27034019': {barcode: '27034019', name: 'Cappuccino Classico', price: 0.99},
-   '4047247041768': {barcode: '4047247041768', name: 'Piles AAA', price: 2.99},
-   '3253561306976': {barcode: '3253561306976', name: 'Mètre', price: 5.99},
-   '6054325441': {barcode: '6054325441', name: 'Lecteur Belfius', price: 9.99},
-   '5099206080270': {barcode: '5099206080270', name: 'Souris Logitech G502', price: 49.99},
-   '2118LZM6UYB9': {barcode: '2118LZM6UYB9', name: 'Ta mère', price: 0.01},
-   '5410228121169': {barcode: '5410228121169', name: 'Jupiler 50 cl', price: 1.50},
-   '5410228269779': {barcode: '5410228269779', name: 'Jupiler 33 cl', price: 1.00}
-}
+import StockService from './services/stock-service';
 
 const App = () => {
    const stock = useStock()
 
-   console.log(stock);
    return (
       <Fragment>
-         <Order />
+         <Order stock={ stock } />
       </Fragment>
    )
 }
 
-function Order() {
+function Order({stock}) {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
    const [target, setTarget] = useState({})
    const input = useKeyboard()
+
+   const [item, setItem] = useState({})
 
    useEffect(() => {
       let newTotal = 0
@@ -36,6 +28,7 @@ function Order() {
          newTotal += item.price * item.quantity
       })
       setTotal(parseFloat(newTotal))
+      console.log(order);
    },[order])
 
    // handle input
@@ -131,6 +124,7 @@ function Order() {
             <div className="col-2">
                <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
             </div>
+            <CardItem item={ target } />
 
          </div>
    )

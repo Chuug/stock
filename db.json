@@ -1,12 +1,12 @@
 {
    "items": [
-      {  "barcode": "27034019", "name": "Cappuccino Classico", "price": 0.99, "stock": 10},
-      {"barcode": "4047247041768", "name": "Piles AAA", "price": 2.99, "stock": 10},
-      {"barcode": "3253561306976", "name": "Mètre", "price": 5.99, "stock": 10},
-      {"barcode": "6054325441", "name": "Lecteur Belfius", "price": 9.99, "stock": 10},
-      {"barcode": "5099206080270", "name": "Souris Logitech G502", "price": 49.99, "stock": 10},
-      {"barcode": "2118LZM6UYB9", "name": "Ta mère", "price": 0.01, "stock": 10},
-      {"barcode": "5410228121169", "name": "Jupiler 50 cl", "price": 1.50, "stock": 10},
-      {"barcode": "5410228269779", "name": "Jupiler 33 cl", "price": 1.00, "stock": 10}
+      {"id":1, "barcode": "27034019", "name": "Cappuccino Classico", "price": 0.99, "stock": 10},
+      {"id":2, "barcode": "4047247041768", "name": "Piles AAA", "price": 2.99, "stock": 10},
+      {"id":3, "barcode": "3253561306976", "name": "Mètre", "price": 5.99, "stock": 10},
+      {"id":4, "barcode": "6054325441", "name": "Lecteur Belfius", "price": 9.99, "stock": 10},
+      {"id":5, "barcode": "5099206080270", "name": "Souris Logitech G502", "price": 49.99, "stock": 10},
+      {"id":6, "barcode": "2118LZM6UYB9", "name": "Ta mère", "price": 0.01, "stock": 10},
+      {"id":7, "barcode": "5410228121169", "name": "Jupiler 50 cl", "price": 1.50, "stock": 10},
+      {"id":8, "barcode": "5410228269779", "name": "Jupiler 33 cl", "price": 1.00, "stock": 10}
    ]
 }
