@@ -5,7 +5,7 @@ import StockService from './services/stock-service';
 
 const App = () => {
    const stock = useStock()
-
+   console.log("Hello");
    return (
       <Fragment>
          <Order stock={ stock } />
