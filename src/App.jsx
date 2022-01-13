@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import useStock from './hooks/stock.hook';
 
 const stock = {
    '27034019': {barcode: '27034019', name: 'Cappuccino Classico', price: 0.99},
@@ -12,6 +13,9 @@ const stock = {
 }
 
 const App = () => {
+   const stock = useStock()
+
+   console.log(stock);
    return (
       <Fragment>
          <Order />
