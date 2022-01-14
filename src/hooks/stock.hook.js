@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import StockService from '../services/stock-service'
 
 const useStock = () => {

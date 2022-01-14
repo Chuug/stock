@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react"
 import { niceFloat } from "../../helpers/functions";
 
 const ListStock = ({stock}) => {
-   console.log(Object.keys(stock));
    return (
       <div className="col-4">
          <div className="card">
@@ -26,7 +24,7 @@ const ListStock = ({stock}) => {
                               </div>
                               <div className="col text-end my-auto">
                                  <button className="btn btn-dark btn-sm">
-                                    <i class="fas fa-plus"></i>
+                                    <i className="fas fa-plus"></i>
                                  </button>
                               </div>
                            </div>

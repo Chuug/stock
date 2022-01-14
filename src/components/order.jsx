@@ -12,8 +12,6 @@ const Order = ({stock}) => {
    const [target, setTarget] = useState({})
    const input = useKeyboard()
 
-   const [item, setItem] = useState({})
-
    useEffect(() => {
       let newTotal = 0
       order.forEach((item) => {
@@ -112,9 +110,7 @@ const Order = ({stock}) => {
                </div>
             </div>
          </div>
-         <div className="col-2">
-            <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
-         </div>
+         <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
          <CardItem item={ target } />
       </Fragment>
    )

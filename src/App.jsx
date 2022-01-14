@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import useStock from './hooks/stock.hook';
 import ListStock from './components/stock/list-stock';
 import Loader from './components/loader';
