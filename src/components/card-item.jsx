@@ -1,6 +1,9 @@
 
-
 const CardItem = ({item}) => {
+   
+   if(Object.keys(item).length === 0)
+      return null
+
    return (
       <div className="col-2">
          <div className="card">

@@ -3,10 +3,11 @@ import StockService from '../services/stock-service'
 
 const useStock = () => {
    const [stock, setStock] = useState()
-
+   
    useEffect(() => {
       let newStock = {}
       StockService.getStock().then(stock => {
+         console.log(stock);
          stock.forEach((i) => {
             Object.defineProperty(newStock, i.barcode, {value: i})
          })

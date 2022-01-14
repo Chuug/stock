@@ -2,14 +2,18 @@ import React, { useState, useEffect, Fragment } from 'react';
 import CardItem from './components/card-item';
 import useStock from './hooks/stock.hook';
 import StockService from './services/stock-service';
+import { niceFloat } from './helpers/functions';
+import ListItems from './components/list-items/list-items';
 
 const App = () => {
    const stock = useStock()
-   console.log("Hello");
+
+   console.log(stock);
    return (
-      <Fragment>
+      <div className="row">
          <Order stock={ stock } />
-      </Fragment>
+         <ListItems items={ stock } />
+      </div>
    )
 }
 
@@ -112,21 +116,20 @@ function Order({stock}) {
    }
 
    return (
-         <div className="row">
-            <div className="col-4">
-               <div className="card">
-                  <div className="card-body">
-                     <Title />
-                     { order.length > 0 && <ListOrder order={ order } total={ total } removeItem={ removeItem } target={ target } setTarget={ setTarget }/> }
-                  </div>
+      <Fragment>
+         <div className="col-4">
+            <div className="card">
+               <div className="card-body">
+                  <Title />
+                  { order.length > 0 && <ListOrder order={ order } total={ total } removeItem={ removeItem } target={ target } setTarget={ setTarget }/> }
                </div>
             </div>
-            <div className="col-2">
-               <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
-            </div>
-            <CardItem item={ target } />
-
          </div>
+         <div className="col-2">
+            <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
+         </div>
+         <CardItem item={ target } />
+      </Fragment>
    )
 }
       
@@ -313,14 +316,6 @@ function Calculator({target, handleCalculator, input}) {
          </div>
       </div>
    )
-}
-
-function setFloat(n) {
-   return parseFloat((n).toFixed(2));
-}
-
-function niceFloat(n) {
-   return (Math.round(n * 100) / 100).toFixed(2);
 }
 
 export default App
