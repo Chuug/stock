@@ -54,6 +54,7 @@ const Order = ({stock}) => {
       } else { // new item
          item = stock[barcode]
          if(item) {
+            //editItem(item, 1, true)
             item.quantity = 1;
             setOrder([...order, item])  
             setTarget(item)
@@ -61,6 +62,16 @@ const Order = ({stock}) => {
             console.log("Item not found");
          }
       }
+   }
+
+   const editItem = (item, quantity, newItem = false) => {
+      item.quantity = quantity
+      let newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
+      if(newItem)
+         setOrder([...order, item])
+      else
+         setOrder(newOrder)
+      setTarget(item)
    }
 
    const switchItem = (direction) => {
