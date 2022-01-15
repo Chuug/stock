@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import useStock from './hooks/stock.hook';
 import ListStock from './components/stock/list-stock';
 import Loader from './components/loader';
 import Order from './components/order';
+import useItem from './hooks/item.hook';
 
 const App = () => {
    const [stock, loading] = useStock()
+
 
    if(loading)
       return (

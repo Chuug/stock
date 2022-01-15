@@ -49,29 +49,42 @@ const Order = ({stock}) => {
    const handleScan = (barcode) => {
       let item = order.filter(item => item.barcode === barcode)[0]
       if(item) { // increment item quantity
-         updateItemQuantity(item, (item.quantity + 1))
-         setTarget(item)
+         // updateItemQuantity(item, (item.quantity + 1))
+         // setTarget(item)
+         editItem(item, 'update', (item.quantity + 1))
       } else { // new item
          item = stock[barcode]
          if(item) {
-            //editItem(item, 1, true)
-            item.quantity = 1;
-            setOrder([...order, item])  
-            setTarget(item)
+            editItem(item, 'new')
+            // item.quantity = 1;
+            // setOrder([...order, item])  
+            // setTarget(item)
          } else {
             console.log("Item not found");
          }
       }
+      setTarget(item)
    }
 
-   const editItem = (item, quantity, newItem = false) => {
-      item.quantity = quantity
-      let newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
-      if(newItem)
-         setOrder([...order, item])
-      else
+   const editItem = (item, action, quantity = null) => {
+      let newOrder = {}
+      if(action === 'delete') {
+         newOrder = order.filter(i => i.barcode !== item.barcode)
          setOrder(newOrder)
-      setTarget(item)
+      } else if (action === 'new') {
+         item.quantity = 1
+         setOrder([...order, item])
+      } else if (action === 'update') {
+         item.quantity = quantity
+         newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
+         setOrder(newOrder)
+      }
+      // item.quantity = quantity
+      // let newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
+      // if(newItem)
+      //    setOrder([...order, item])
+      // else
+      //    setOrder(newOrder)
    }
 
    const switchItem = (direction) => {
@@ -99,16 +112,24 @@ const Order = ({stock}) => {
       setOrder(newOrder)
    }
 
-   const removeItem = (e,barcode) => {
+   const handleDelete = (e, item) => {
       if(e)
          e.stopPropagation()
-      const newOrder = order.filter(item => item.barcode !== barcode)
+      editItem(item, 'delete')
+      setTarget((order[0]) ? order[0] : {})
+   }
+
+   const removeItem = (e,item) => {
+      if(e)
+         e.stopPropagation()
+      const newOrder = order.filter(i => i.barcode !== item.barcode)
       setOrder(newOrder)
       setTarget((newOrder[0]) ? newOrder[0] : {})
    }
 
    const handleCalculator = (quantity) => {
-      updateItemQuantity(target, quantity)
+      editItem(target, 'update', quantity)
+      //updateItemQuantity(target, quantity)
    }
 
    return (
@@ -117,7 +138,7 @@ const Order = ({stock}) => {
             <div className="card">
                <div className="card-body">
                   <Title>Commande</Title>
-                  { order.length > 0 && <ListOrder order={ order } total={ total } removeItem={ removeItem } target={ target } setTarget={ setTarget }/> }
+                  { order.length > 0 && <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> }
                </div>
             </div>
          </div>

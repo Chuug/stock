@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { niceFloat } from "../../helpers/functions"
 
-const ListOrder = ({order, total, removeItem, target, setTarget}) => {
+const ListOrder = ({order, total, handleDelete, target, setTarget}) => {
 
    return (
       <Fragment>
@@ -18,7 +18,7 @@ const ListOrder = ({order, total, removeItem, target, setTarget}) => {
                   <div className="col-3 my-auto text-center">{ item.quantity }</div>
                   <div className="col-3 my-auto text-center font-monospace">{ niceFloat(item.price) }</div>
                   <div className="col-1 my-auto">
-                     <i className="fas fa-trash text-danger pointer" onClick={ (e) => removeItem(e,item.barcode) }></i>
+                     <i className="fas fa-trash text-danger pointer" onClick={ (e) => handleDelete(e,item) }></i>
                   </div>
                </div>
             </div>
