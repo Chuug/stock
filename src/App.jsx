@@ -7,7 +7,12 @@ import useItem from './hooks/item.hook';
 
 const App = () => {
    const [stock, loading] = useStock()
+   const [testt, setTest] = useState()
 
+   const test = (item) => {
+      console.log(item);
+      setTest(item)
+   }
 
    if(loading)
       return (
@@ -19,7 +24,7 @@ const App = () => {
    return (
       <div className="row">
          <Order stock={ stock } />
-         <ListStock stock={ stock } />
+         <ListStock stock={ stock } test={ test } />
       </div>
    )
 }

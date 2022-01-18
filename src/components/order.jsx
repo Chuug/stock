@@ -5,6 +5,8 @@ import Title from './common/title'
 import CardItem from './card-item'
 import ListOrder from './order/list-order'
 
+
+
 const Order = ({stock}) => {
 
    const [order, setOrder] = useState([])
@@ -28,7 +30,7 @@ const Order = ({stock}) => {
                handleScan(input.input)
                break
             case 'Delete':
-               removeItem(null, target.barcode)
+               handleDelete(null, target)
                break
             case 'ArrowUp':
                switchItem(input.type)
@@ -52,24 +54,26 @@ const Order = ({stock}) => {
          // updateItemQuantity(item, (item.quantity + 1))
          // setTarget(item)
          editItem(item, 'update', (item.quantity + 1))
+         setTarget(item)
       } else { // new item
          item = stock[barcode]
+         console.log(item);
          if(item) {
             editItem(item, 'new')
             // item.quantity = 1;
             // setOrder([...order, item])  
-            // setTarget(item)
+            setTarget(item)
          } else {
             console.log("Item not found");
          }
       }
-      setTarget(item)
    }
 
    const editItem = (item, action, quantity = null) => {
       let newOrder = {}
       if(action === 'delete') {
          newOrder = order.filter(i => i.barcode !== item.barcode)
+         console.log(newOrder);
          setOrder(newOrder)
       } else if (action === 'new') {
          item.quantity = 1

@@ -1,6 +1,6 @@
 import { niceFloat } from "../../helpers/functions";
 
-const ListStock = ({stock}) => {
+const ListStock = ({stock, test}) => {
    return (
       <div className="col-4">
          <div className="card">
@@ -23,14 +23,13 @@ const ListStock = ({stock}) => {
                                  <div className="fw-light text-end">{ stock[item].stock }</div>                                 
                               </div>
                               <div className="col text-end my-auto">
-                                 <button className="btn btn-dark btn-sm">
+                                 <button className="btn btn-dark btn-sm" onClick={() => test(item)}>
                                     <i className="fas fa-plus"></i>
                                  </button>
                               </div>
                            </div>
                         </div>
-                     </div>
-                     
+                     </div>        
                   ))
                }
             </div>
