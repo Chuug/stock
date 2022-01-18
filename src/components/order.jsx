@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react"
+import { useState, useEffect, Fragment, useContext } from "react"
 import useKeyboard from '../hooks/keyboard.hook'
 import Calculator from './common/calculator'
 import Title from './common/title'
@@ -7,12 +7,19 @@ import ListOrder from './order/list-order'
 
 
 
-const Order = ({stock}) => {
+const Order = ({stock, stockBarcode}) => {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
    const [target, setTarget] = useState({})
    const input = useKeyboard()
+
+   useEffect(() => {
+      if(stockBarcode) {
+         let item = getItem(stockBarcode)
+         (item) ? editItem(item, 'update', (item.quantity + 1)) : editItem(stock[stockBarcode], 'new')
+      }
+   }, [stockBarcode])
 
    useEffect(() => {
       let newTotal = 0
@@ -49,24 +56,24 @@ const Order = ({stock}) => {
    },[target])
 
    const handleScan = (barcode) => {
-      let item = order.filter(item => item.barcode === barcode)[0]
+      let item = getItem(barcode)
       if(item) { // increment item quantity
-         // updateItemQuantity(item, (item.quantity + 1))
-         // setTarget(item)
          editItem(item, 'update', (item.quantity + 1))
          setTarget(item)
       } else { // new item
          item = stock[barcode]
-         console.log(item);
          if(item) {
             editItem(item, 'new')
-            // item.quantity = 1;
-            // setOrder([...order, item])  
             setTarget(item)
          } else {
             console.log("Item not found");
          }
       }
+   }
+
+   const getItem = (barcode) => {
+      let item = order.filter(i => i.barcode === barcode)[0]
+      return item
    }
 
    const editItem = (item, action, quantity = null) => {
@@ -75,6 +82,7 @@ const Order = ({stock}) => {
          newOrder = order.filter(i => i.barcode !== item.barcode)
          console.log(newOrder);
          setOrder(newOrder)
+         setTarget((newOrder[0]) ? newOrder[0] : {})
       } else if (action === 'new') {
          item.quantity = 1
          setOrder([...order, item])
@@ -128,7 +136,6 @@ const Order = ({stock}) => {
          e.stopPropagation()
       const newOrder = order.filter(i => i.barcode !== item.barcode)
       setOrder(newOrder)
-      setTarget((newOrder[0]) ? newOrder[0] : {})
    }
 
    const handleCalculator = (quantity) => {

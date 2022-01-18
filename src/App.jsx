@@ -7,11 +7,10 @@ import useItem from './hooks/item.hook';
 
 const App = () => {
    const [stock, loading] = useStock()
-   const [testt, setTest] = useState()
+   const [stockBarcode, setStockBarcode] = useState()
 
-   const test = (item) => {
-      console.log(item);
-      setTest(item)
+   const itemFromStock = (barcodeFromStock) => {
+      setStockBarcode(barcodeFromStock)
    }
 
    if(loading)
@@ -22,9 +21,9 @@ const App = () => {
       )
 
    return (
-      <div className="row">
-         <Order stock={ stock } />
-         <ListStock stock={ stock } test={ test } />
+      <div className="row animate__animated animate__fadeIn animate__faster">
+         <Order stock={ stock } stockBarcode={ stockBarcode } />
+         <ListStock stock={ stock } itemFromStock={ itemFromStock } />
       </div>
    )
 }
