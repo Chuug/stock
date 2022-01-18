@@ -8,6 +8,11 @@
    left:48%;
 }
 
+.idle {
+   position: relative;
+   top: 50%;
+}
+
 .stock-hover:hover {
    background-color: #f8f9fa!important;
    cursor: pointer;

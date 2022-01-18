@@ -26,7 +26,7 @@ const ListStock = ({stock, itemFromStock}) => {
                {
                   Object.keys(listStock).map((barcode, key) => (
                      <div className="card p-0 mb-1 stock-hover" key={ key } onClick={() => itemFromStock(barcode)}>
-                        <div className="card-body p-2">
+                        <div className="card-body p-1">
                            <div className="row">
                               <div className="col-6 my-auto">
                                  <div>{ stock[barcode].name }</div>
@@ -36,11 +36,6 @@ const ListStock = ({stock, itemFromStock}) => {
                               </div>
                               <div className="col-2 my-auto">
                                  <div className="fw-light text-end">{ stock[barcode].stock }</div>                                 
-                              </div>
-                              <div className="col text-end my-auto">
-                                 <button className="btn btn-dark btn-sm" onClick={() => itemFromStock(barcode)}>
-                                    <i className="fas fa-plus"></i>
-                                 </button>
                               </div>
                            </div>
                         </div>

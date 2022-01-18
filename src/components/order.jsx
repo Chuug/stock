@@ -1,18 +1,18 @@
 import { useState, useEffect, Fragment } from "react"
 import useKeyboard from '../hooks/keyboard.hook'
-import Calculator from './common/calculator'
-import Title from './common/title'
-import CardItem from './order/card-item'
-import ListOrder from './order/list-order'
-
-
+import Calculator from './common/Calculator'
+import Title from './common/Title'
+import CardItem from './order/CardItem'
+import ListOrder from './order/ListOrder'
+import Payment from "./order/Payment"
+import FinalizeButton from "./order/FinalizeButton"
 
 const Order = ({stock, stockBarcode, setStockBarcode}) => {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
    const [target, setTarget] = useState({})
-   const [step, setStep] = useState(0)
+   const [cashout, setCashout] = useState(false)
    const input = useKeyboard()
 
    // Click from ListStock
@@ -51,7 +51,7 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
                switchItem(input.type)
                break
             case 'Enter':
-               handleSubmit()
+               handleCashout()
                break
             default:
                break
@@ -61,7 +61,9 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
 
    // Hello target
    useEffect(() => {
-
+      if(Object.keys(target).length > 0) {
+         setCashout(false)
+      }
    },[target])
 
    // Barcode scanner handling
@@ -138,15 +140,15 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
       editItem(target, 'update', quantity)
    }
 
-   const handleSubmit = () => {
-      setStep(s => s + 1)
+   const handleCashout = () => {
+      setCashout(true)
       setTarget({})
    }
 
    return (
       <div className="col-6">
          <div className="row">
-            <div className="col-8">
+            <div className={ order.length === 0 ? 'col-12' : 'col-8' }>
                <div className="row">
                   <div className="card">
                      <div className="card-body px-0">
@@ -157,22 +159,14 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
                               <Title>Sélectionner dans le stock</Title>
                            </Fragment>
                         }
-                        { order.length > 0 && <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> }
-                        { (order.length > 0 && step === 1) &&
-                           <Fragment>
-                              <div className="strike mt-3">
-                                 <span className="h4 fw-light">Paiment</span>
-                              </div>
-                              <div className="row">
-                                 
-                              </div>
-                           </Fragment>
+                        { order.length > 0 && 
+                           <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> 
+                        }
+                        { (order.length > 0 && cashout) &&
+                           <Payment />
                         }
                         { order.length > 0 &&
-                           <div className="btn btn-dark btn-lg mt-3 d-block" onClick={ () => handleSubmit() }>
-                              { step === 0 && <span>Passer au paiment ↵</span> }
-                              { step === 1 && <span>Finaliser ↵</span> }
-                           </div>                        
+                           <FinalizeButton cashout={ cashout } handleCashout={ handleCashout } />                  
                         }
                      </div>
                   </div>

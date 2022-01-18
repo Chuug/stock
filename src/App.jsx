@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import useStock from './hooks/stock.hook';
-import ListStock from './components/stock/list-stock';
-import Loader from './components/loader';
-import Order from './components/order';
+import ListStock from './components/stock/ListStock';
+import Loader from './components/Loader';
+import Order from './components/Order';
 import TopBar from './components/common/TopBar';
 
 const App = () => {
