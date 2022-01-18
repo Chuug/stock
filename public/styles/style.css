@@ -7,3 +7,40 @@
    top:40%;
    left:48%;
 }
+
+.stock-hover:hover {
+   background-color: #f8f9fa!important;
+   cursor: pointer;
+}
+
+.strike {
+   display: block;
+   text-align: center;
+   overflow: hidden;
+   white-space: nowrap; 
+}
+
+.strike > span {
+   position: relative;
+   display: inline-block;
+}
+
+.strike > span:before,
+.strike > span:after {
+   content: "";
+   position: absolute;
+   top: 55%;
+   width: 9999px;
+   height: 1px;
+   background: #212529;
+}
+
+.strike > span:before {
+   right: 100%;
+   margin-right: 15px;
+}
+
+.strike > span:after {
+   left: 100%;
+   margin-left: 15px;
+}

@@ -1,6 +1,6 @@
 const Title = ({children}) => {
    return (
-         <h1 className='text-center'>{ children }</h1>    
+         <h3 className='text-center fw-light'>{ children }</h3>    
    )
 }
 

@@ -11,6 +11,12 @@ export default class StockService {
                .catch(err => this.handleError(err))
    }
 
+   static searchItems(string) {
+      return fetch(`http://localhost:3001/items?q=${ string }`)
+               .then(rep => rep.json())
+               .catch(err => this.handleError(err))
+   }
+
    static handleError(err) {
       console.log(err);
    }

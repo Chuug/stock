@@ -1,11 +1,11 @@
 
 const CardItem = ({item}) => {
-   
+
    if(Object.keys(item).length === 0)
       return null
 
    return (
-      <div className="col-2">
+      <div className="col-12 mb-4">
          <div className="card">
             <div className="card-body">
                <div className="fw-bold">ID: { item.barcode }</div>

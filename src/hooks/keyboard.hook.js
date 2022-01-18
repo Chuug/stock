@@ -15,11 +15,18 @@ const useKeyboard = () => {
                input: e.key,
                type: 'numpad'
             })
-         } else if(e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+         } else if(e.key === 'Delete' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             setInput({
                input: e.key,
                type: e.key
             })
+         } else if (e.key === 'Backspace') {
+            if(e.target.tagName !== 'INPUT') {
+               setInput({
+                  input: e.key,
+                  type: e.key
+               })               
+            }
          }
 
          // Setting scan string
@@ -28,11 +35,19 @@ const useKeyboard = () => {
                newInput = mem + '' + e.key  
                setMem(newInput)
             } else if(e.key === 'Enter') {
-               setInput({
-                  input: mem,
-                  type: type
-               })
-               setMem('')
+               if(mem) {
+                  setInput({
+                     input: mem,
+                     type: type
+                  })
+                  setMem('')
+               } else {
+                  setInput({
+                     input: e.key,
+                     type: e.key
+                  })                   
+               }
+
             }
          }
       } 

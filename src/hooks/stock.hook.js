@@ -9,7 +9,6 @@ const useStock = () => {
       let newStock = {}
       StockService.getStock().then(stock => {      
          stock.forEach((i) => {
-
             newStock[i.barcode] = i
          })
          setStock(newStock)

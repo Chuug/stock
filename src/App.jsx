@@ -3,7 +3,7 @@ import useStock from './hooks/stock.hook';
 import ListStock from './components/stock/list-stock';
 import Loader from './components/loader';
 import Order from './components/order';
-import useItem from './hooks/item.hook';
+import TopBar from './components/common/TopBar';
 
 const App = () => {
    const [stock, loading] = useStock()
@@ -21,10 +21,13 @@ const App = () => {
       )
 
    return (
-      <div className="row animate__animated animate__fadeIn animate__faster">
-         <Order stock={ stock } stockBarcode={ stockBarcode } />
-         <ListStock stock={ stock } itemFromStock={ itemFromStock } />
-      </div>
+      <Fragment>
+         <TopBar />
+         <div className="row animate__animated animate__fadeIn animate__faster mt-5">
+            <Order stock={ stock } stockBarcode={ stockBarcode } setStockBarcode={ setStockBarcode } />
+            <ListStock stock={ stock } itemFromStock={ itemFromStock } />
+         </div>
+      </Fragment>
    )
 }
 

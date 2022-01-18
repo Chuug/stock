@@ -1,26 +1,31 @@
-import { useState, useEffect, Fragment, useContext } from "react"
+import { useState, useEffect, Fragment } from "react"
 import useKeyboard from '../hooks/keyboard.hook'
 import Calculator from './common/calculator'
 import Title from './common/title'
-import CardItem from './card-item'
+import CardItem from './order/card-item'
 import ListOrder from './order/list-order'
 
 
 
-const Order = ({stock, stockBarcode}) => {
+const Order = ({stock, stockBarcode, setStockBarcode}) => {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
    const [target, setTarget] = useState({})
+   const [step, setStep] = useState(0)
    const input = useKeyboard()
 
+   // Click from ListStock
    useEffect(() => {
       if(stockBarcode) {
          let item = getItem(stockBarcode)
-         (item) ? editItem(item, 'update', (item.quantity + 1)) : editItem(stock[stockBarcode], 'new')
+         item ? editItem(item, 'update', (item.quantity + 1)) : editItem(stock[stockBarcode], 'new')
+         setTarget(stock[stockBarcode])
+         setStockBarcode(null)
       }
    }, [stockBarcode])
 
+   // Update Total
    useEffect(() => {
       let newTotal = 0
       order.forEach((item) => {
@@ -29,7 +34,7 @@ const Order = ({stock, stockBarcode}) => {
       setTotal(parseFloat(newTotal))
    },[order])
 
-   // handle input
+   // Handle keyboard input
    useEffect(() => {
       if(input) {
          switch(input.type) {
@@ -45,16 +50,21 @@ const Order = ({stock, stockBarcode}) => {
             case 'ArrowDown':
                switchItem(input.type)
                break
+            case 'Enter':
+               handleSubmit()
+               break
             default:
                break
          }
       }      
    },[input])
 
+   // Hello target
    useEffect(() => {
-      console.log(target);
+
    },[target])
 
+   // Barcode scanner handling
    const handleScan = (barcode) => {
       let item = getItem(barcode)
       if(item) { // increment item quantity
@@ -71,18 +81,20 @@ const Order = ({stock, stockBarcode}) => {
       }
    }
 
+   // Get item in order
    const getItem = (barcode) => {
       let item = order.filter(i => i.barcode === barcode)[0]
       return item
    }
 
+   // Edit item in order
    const editItem = (item, action, quantity = null) => {
       let newOrder = {}
       if(action === 'delete') {
          newOrder = order.filter(i => i.barcode !== item.barcode)
-         console.log(newOrder);
+         let pos = getItemPosition(item.barcode)
          setOrder(newOrder)
-         setTarget((newOrder[0]) ? newOrder[0] : {})
+         setTarget((newOrder.length > 0) ? ((pos > 0) ? newOrder[pos - 1] : newOrder[0]) : {})
       } else if (action === 'new') {
          item.quantity = 1
          setOrder([...order, item])
@@ -91,14 +103,9 @@ const Order = ({stock, stockBarcode}) => {
          newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
          setOrder(newOrder)
       }
-      // item.quantity = quantity
-      // let newOrder = order.filter(i => { return (item.barcode === i.barcode) ? item : i})
-      // if(newItem)
-      //    setOrder([...order, item])
-      // else
-      //    setOrder(newOrder)
    }
 
+   // Switch target position up & down
    const switchItem = (direction) => {
       let pos = getItemPosition(target.barcode)
       if(direction === 'ArrowDown' && pos < order.length - 1) {
@@ -109,6 +116,7 @@ const Order = ({stock, stockBarcode}) => {
       }
    }
 
+   // Get item position in order
    const getItemPosition = (barcode) => {
       let pos
       order.forEach((item,index) => {
@@ -118,44 +126,64 @@ const Order = ({stock, stockBarcode}) => {
       return pos 
    }
 
-   const updateItemQuantity = (item, quantity) => {
-      item.quantity = quantity
-      let newOrder = order.filter(i => { return (i.barcode === item.barcode) ? item : i})
-      setOrder(newOrder)
-   }
-
+   // Delete item in order
    const handleDelete = (e, item) => {
       if(e)
          e.stopPropagation()
       editItem(item, 'delete')
-      setTarget((order[0]) ? order[0] : {})
    }
 
-   const removeItem = (e,item) => {
-      if(e)
-         e.stopPropagation()
-      const newOrder = order.filter(i => i.barcode !== item.barcode)
-      setOrder(newOrder)
-   }
-
+   // Handle digits from calculator
    const handleCalculator = (quantity) => {
       editItem(target, 'update', quantity)
-      //updateItemQuantity(target, quantity)
+   }
+
+   const handleSubmit = () => {
+      setStep(s => s + 1)
+      setTarget({})
    }
 
    return (
-      <Fragment>
-         <div className="col-4">
-            <div className="card">
-               <div className="card-body">
-                  <Title>Commande</Title>
-                  { order.length > 0 && <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> }
+      <div className="col-6">
+         <div className="row">
+            <div className="col-8">
+               <div className="row">
+                  <div className="card">
+                     <div className="card-body px-0">
+                        { order.length === 0 &&
+                           <Fragment>
+                              <Title>Scanner un article </Title>
+                              <Title>ou</Title>
+                              <Title>Sélectionner dans le stock</Title>
+                           </Fragment>
+                        }
+                        { order.length > 0 && <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> }
+                        { (order.length > 0 && step === 1) &&
+                           <Fragment>
+                              <div className="strike mt-3">
+                                 <span className="h4 fw-light">Paiment</span>
+                              </div>
+                              <div className="row">
+                                 
+                              </div>
+                           </Fragment>
+                        }
+                        { order.length > 0 &&
+                           <div className="btn btn-dark btn-lg mt-3 d-block" onClick={ () => handleSubmit() }>
+                              { step === 0 && <span>Passer au paiment ↵</span> }
+                              { step === 1 && <span>Finaliser ↵</span> }
+                           </div>                        
+                        }
+                     </div>
+                  </div>
                </div>
             </div>
+            <div className="col-4">
+               <CardItem item={ target } />
+               <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
+            </div>
          </div>
-         <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
-         <CardItem item={ target } />
-      </Fragment>
+      </div>
    )
 }
 
