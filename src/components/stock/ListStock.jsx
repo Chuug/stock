@@ -6,14 +6,14 @@ const ListStock = ({stock, itemFromStock}) => {
    const [search, setSearch] = useState('')
    const [listStock, setListStock] = useState(stock)
 
+   console.log(stock);
+
    useEffect(() => {
-      let newStock = {}
-      StockService.searchItems(search).then(stock => {
-         stock.forEach((i) => {
-            newStock[i.barcode] = i
-         })
-         setListStock(newStock)         
-      })
+      setListStock(stock)
+   },[stock])
+
+   useEffect(() => {
+      StockService.searchItems(search).then(stock => setListStock(stock))
    }, [search])
 
    return (
@@ -24,18 +24,18 @@ const ListStock = ({stock, itemFromStock}) => {
             </div>
             <div className="card-body">
                {
-                  Object.keys(listStock).map((barcode, key) => (
-                     <div className="card p-0 mb-1 stock-hover" key={ key } onClick={() => itemFromStock(barcode)}>
+                  listStock.map((item, key) => (
+                     <div className="card p-0 mb-1 stock-hover" key={ key } onClick={() => itemFromStock(item.barcode)}>
                         <div className="card-body p-1">
                            <div className="row">
                               <div className="col-6 my-auto">
-                                 <div>{ stock[barcode].name }</div>
+                                 <div>{ item.name }</div>
                               </div>
                               <div className="col-2 my-auto">
-                                 <div className="fw-light text-end">{ niceFloat(stock[barcode].price) }</div>
+                                 <div className="fw-light text-end">{ niceFloat(item.price) }</div>
                               </div>
                               <div className="col-2 my-auto">
-                                 <div className="fw-light text-end">{ stock[barcode].stock }</div>                                 
+                                 <div className="fw-light text-end">{ item.stock }</div>                                 
                               </div>
                            </div>
                         </div>

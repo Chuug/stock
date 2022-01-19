@@ -4,23 +4,27 @@ import Calculator from './common/Calculator'
 import Title from './common/Title'
 import CardItem from './order/CardItem'
 import ListOrder from './order/ListOrder'
-import Payment from "./order/Payment"
 import FinalizeButton from "./order/FinalizeButton"
+import OrderPayment from "./order/OrderPayment"
+import StockService from "../services/stock-service"
 
-const Order = ({stock, stockBarcode, setStockBarcode}) => {
+const Order = ({memStock, stockBarcode, setStockBarcode}) => {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
    const [target, setTarget] = useState({})
    const [cashout, setCashout] = useState(false)
+   const [payment, setPayment] = useState(0)
+   const [cashback, setCashback] = useState(0)
+   const [finalize, setFinalize] = useState(false)
    const input = useKeyboard()
 
    // Click from ListStock
    useEffect(() => {
       if(stockBarcode) {
          let item = getItem(stockBarcode)
-         item ? editItem(item, 'update', (item.quantity + 1)) : editItem(stock[stockBarcode], 'new')
-         setTarget(stock[stockBarcode])
+         item ? editItem(item, 'update', (item.quantity + 1)) : editItem(memStock[stockBarcode], 'new')
+         setTarget(memStock[stockBarcode])
          setStockBarcode(null)
       }
    }, [stockBarcode])
@@ -73,7 +77,7 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
          editItem(item, 'update', (item.quantity + 1))
          setTarget(item)
       } else { // new item
-         item = stock[barcode]
+         item = memStock[barcode]
          if(item) {
             editItem(item, 'new')
             setTarget(item)
@@ -137,13 +141,43 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
 
    // Handle digits from calculator
    const handleCalculator = (quantity) => {
-      editItem(target, 'update', quantity)
+      if(!cashout)
+         editItem(target, 'update', quantity)
    }
 
    const handleCashout = () => {
-      setCashout(true)
-      setTarget({})
+      if(!cashout) {
+         setCashout(true)
+         setTarget({})
+      } else if(finalize || payment === 0) {
+         console.log('On peut finir'); 
+         finalizeOrder()  
+      }
+
    }
+
+   const finalizeOrder = () => {
+      let sale = {
+         total: total,
+         payment: payment === 0 ? "Bancontact" : "Cash",
+         amount: total,
+         timestamp: Date.now()
+      }
+
+      order.forEach(item => {
+         StockService.getItemById(item.id).then(rep => {
+            rep.stock = memStock[item.barcode].stock - item.quantity
+            StockService.updateItemStock(rep)
+         })
+      })
+
+
+   }
+
+   useEffect(() => {
+      if(cashback >= 0 && cashout)
+         setFinalize(true)
+   },[cashback])
 
    return (
       <div className="col-6">
@@ -163,7 +197,7 @@ const Order = ({stock, stockBarcode, setStockBarcode}) => {
                            <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> 
                         }
                         { (order.length > 0 && cashout) &&
-                           <Payment />
+                           <OrderPayment total={ total } cashback={ cashback } setCashback={ setCashback } payment={ payment } setPayment={ setPayment } />
                         }
                         { order.length > 0 &&
                            <FinalizeButton cashout={ cashout } handleCashout={ handleCashout } />                  

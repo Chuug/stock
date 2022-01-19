@@ -11,6 +11,7 @@ const useStock = () => {
          stock.forEach((i) => {
             newStock[i.barcode] = i
          })
+         console.log(newStock);
          setStock(newStock)
       })
    },[])
