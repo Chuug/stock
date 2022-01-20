@@ -14,7 +14,7 @@ const TopBar = () => {
                   </div>
                </div>
             </div>
-            <div className="col-6">
+            <div className="col-6 p-0">
                <div className="row">
                   <div className="col-3 my-auto">
                      <h3 className="text-light fw-light">Stock</h3>

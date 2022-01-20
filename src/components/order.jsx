@@ -7,8 +7,12 @@ import ListOrder from './order/ListOrder'
 import FinalizeButton from "./order/FinalizeButton"
 import OrderPayment from "./order/OrderPayment"
 import StockService from "../services/stock-service"
+import { setFloat } from "../helpers/functions"
+import { toast } from 'react-toastify';
+import LastSales from "./order/LastSales"
+import useScreen from "../hooks/screen.hook"
 
-const Order = ({memStock, stockBarcode, setStockBarcode}) => {
+const Order = ({memStock, stockBarcode, setStockBarcode, stock, setStock, sales}) => {
 
    const [order, setOrder] = useState([])
    const [total, setTotal] = useState(0)
@@ -18,6 +22,18 @@ const Order = ({memStock, stockBarcode, setStockBarcode}) => {
    const [cashback, setCashback] = useState(0)
    const [finalize, setFinalize] = useState(false)
    const input = useKeyboard()
+
+   const lastSalesStyle = useScreen(order)
+
+   const resetOrder = () => {
+      setOrder([])
+      setTarget({})
+      setTotal(0)
+      setCashout(false)
+      setPayment(0)
+      setCashback(0)
+      setFinalize(false)
+   }
 
    // Click from ListStock
    useEffect(() => {
@@ -35,7 +51,9 @@ const Order = ({memStock, stockBarcode, setStockBarcode}) => {
       order.forEach((item) => {
          newTotal += item.price * item.quantity
       })
-      setTotal(parseFloat(newTotal))
+      setTotal(setFloat(newTotal))
+
+
    },[order])
 
    // Handle keyboard input
@@ -82,7 +100,7 @@ const Order = ({memStock, stockBarcode, setStockBarcode}) => {
             editItem(item, 'new')
             setTarget(item)
          } else {
-            console.log("Item not found");
+            toast.error("Aucun article trouvé")
          }
       }
    }
@@ -160,18 +178,29 @@ const Order = ({memStock, stockBarcode, setStockBarcode}) => {
       let sale = {
          total: total,
          payment: payment === 0 ? "Bancontact" : "Cash",
-         amount: total,
+         amount: payment === 0 ? total : total + cashback,
          timestamp: Date.now()
       }
 
-      order.forEach(item => {
-         StockService.getItemById(item.id).then(rep => {
-            rep.stock = memStock[item.barcode].stock - item.quantity
-            StockService.updateItemStock(rep)
+      let newStock = []
+      stock.forEach(item => {
+         let newItem = item
+         order.forEach(orderItem => {
+            if(orderItem.barcode === item.barcode) {
+               let qt = orderItem.quantity
+               newItem.stock -= qt
+            }       
          })
+         newStock.push(newItem)
+         StockService.updateItemStock(newItem)
       })
 
-
+      setStock(newStock)
+      StockService.addSale(sale)
+      resetOrder()
+      toast.success('Vente terminée', {
+         position: "top-center"
+      })
    }
 
    useEffect(() => {
@@ -182,33 +211,38 @@ const Order = ({memStock, stockBarcode, setStockBarcode}) => {
    return (
       <div className="col-6">
          <div className="row">
-            <div className={ order.length === 0 ? 'col-12' : 'col-8' }>
+            <div className="col-8">
                <div className="row">
-                  <div className="card">
-                     <div className="card-body px-0">
-                        { order.length === 0 &&
-                           <Fragment>
-                              <Title>Scanner un article </Title>
-                              <Title>ou</Title>
-                              <Title>Sélectionner dans le stock</Title>
-                           </Fragment>
-                        }
-                        { order.length > 0 && 
-                           <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> 
-                        }
-                        { (order.length > 0 && cashout) &&
-                           <OrderPayment total={ total } cashback={ cashback } setCashback={ setCashback } payment={ payment } setPayment={ setPayment } />
-                        }
-                        { order.length > 0 &&
-                           <FinalizeButton cashout={ cashout } handleCashout={ handleCashout } />                  
-                        }
+                  { order.length === 0 &&
+                     <div className="card">
+                        <div className="card-body px-0">
+                           <Title>Scanner un article </Title>
+                           <Title>ou</Title>
+                           <Title>Sélectionner dans le stock</Title>
+                        </div>
+                     </div>                 
+                  }
+                  { order.length > 0 &&
+                     <div className="card">
+                        <div className="card-body px-0">
+                           { order.length > 0 && 
+                              <ListOrder order={ order } total={ total } handleDelete={ handleDelete } target={ target } setTarget={ setTarget }/> 
+                           }
+                           { (order.length > 0 && cashout) &&
+                              <OrderPayment total={ total } cashback={ cashback } setCashback={ setCashback } payment={ payment } setPayment={ setPayment } />
+                           }
+                           { order.length > 0 &&
+                              <FinalizeButton cashout={ cashout } handleCashout={ handleCashout } />                  
+                           }
+                        </div>
                      </div>
-                  </div>
+                  }
                </div>
             </div>
             <div className="col-4">
                <CardItem item={ target } />
                <Calculator target={ target } handleCalculator={ handleCalculator } input={ input } />
+               <LastSales sales={ sales } lastSalesStyle={ lastSalesStyle } />
             </div>
          </div>
       </div>

@@ -51,7 +51,7 @@ const Calculator = ({target, handleCalculator, input}) => {
       return null
 
    return (
-      <div className="col-12">
+      <div className="col-12 mb-2">
          <div className="card">
             <div className="card-body py-2">
                <div className="row">

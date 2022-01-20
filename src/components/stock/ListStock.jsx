@@ -6,8 +6,6 @@ const ListStock = ({stock, itemFromStock}) => {
    const [search, setSearch] = useState('')
    const [listStock, setListStock] = useState(stock)
 
-   console.log(stock);
-
    useEffect(() => {
       setListStock(stock)
    },[stock])
@@ -17,7 +15,7 @@ const ListStock = ({stock, itemFromStock}) => {
    }, [search])
 
    return (
-      <div className="col">
+      <div className="col p-0">
          <div className="card">
             <div className="card-header text-center p-2">
                <input type="text" name="search" className="form-control form-control-lg" placeholder="Rechercher dans le stock" value={ search } onChange={ (e) => setSearch(e.target.value) } />

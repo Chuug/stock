@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from "react"
-import { niceFloat } from "../../helpers/functions"
+import { niceFloat, setFloat } from "../../helpers/functions"
 
 const OrderPayment = ({total, cashback, setCashback, payment, setPayment}) => {
    const [amount, setAmount] = useState('')
 
    useEffect(() => {
-      setCashback(niceFloat(amount - total))
+      setCashback(setFloat(amount - total))
    }, [amount])
 
    return (

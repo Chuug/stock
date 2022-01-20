@@ -5,7 +5,7 @@ const CardItem = ({item}) => {
       return null
 
    return (
-      <div className="col-12 mb-4">
+      <div className="col-12 mb-2">
          <div className="card">
             <div className="card-body">
                <div className="fw-bold">ID: { item.barcode }</div>
