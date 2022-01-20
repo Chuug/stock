@@ -217,8 +217,8 @@ const Order = ({memStock, stockBarcode, setStockBarcode, stock, setStock, sales}
                      <div className="card">
                         <div className="card-body px-0">
                            <Title>Scanner un article </Title>
-                           <Title>ou</Title>
-                           <Title>Sélectionner dans le stock</Title>
+                           <Title><i className="fas fa-5x fa-barcode"></i></Title>
+                           <Title>Ou sélectionner dans le stock</Title>
                         </div>
                      </div>                 
                   }
