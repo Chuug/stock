@@ -189,10 +189,11 @@ const Order = ({memStock, stockBarcode, setStockBarcode, stock, setStock, sales}
             if(orderItem.barcode === item.barcode) {
                let qt = orderItem.quantity
                newItem.stock -= qt
+               StockService.updateItemStock(newItem)               
             }       
-         })
-         newStock.push(newItem)
-         StockService.updateItemStock(newItem)
+         }) 
+
+         newStock.push(newItem)  
       })
 
       setStock(newStock)
