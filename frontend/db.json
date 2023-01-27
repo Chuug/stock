@@ -1,0 +1,398 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "barcode": "27034019",
+      "name": "Cappuccino Classico",
+      "price": 0.99,
+      "stock": 0
+    },
+    {
+      "id": 2,
+      "barcode": "4047247041768",
+      "name": "Piles AAA",
+      "price": 2.99,
+      "stock": 0
+    },
+    {
+      "id": 3,
+      "barcode": "3253561306976",
+      "name": "Mètre",
+      "price": 5.99,
+      "stock": 3
+    },
+    {
+      "id": 4,
+      "barcode": "6054325441",
+      "name": "Lecteur Belfius",
+      "price": 9.99,
+      "stock": 1
+    },
+    {
+      "id": 5,
+      "barcode": "5099206080270",
+      "name": "Souris Logitech G502",
+      "price": 49.99,
+      "stock": -2
+    },
+    {
+      "id": 6,
+      "barcode": "2118LZM6UYB9",
+      "name": "Ta mère",
+      "price": 0.01,
+      "stock": 3
+    },
+    {
+      "id": 7,
+      "barcode": "5410228121169",
+      "name": "Jupiler 50 cl",
+      "price": 1.5,
+      "stock": 12
+    },
+    {
+      "id": 8,
+      "barcode": "5410228269779",
+      "name": "Jupiler 33 cl",
+      "price": 1,
+      "stock": 0
+    }
+  ],
+  "sales": [
+    {
+      "total": 0.99,
+      "payment": "Cash",
+      "amount": 5,
+      "timestamp": 1642679469811,
+      "id": 1
+    },
+    {
+      "total": 0.99,
+      "payment": "Bancontact",
+      "amount": 0.99,
+      "timestamp": 1642681608581,
+      "id": 2
+    },
+    {
+      "total": 0.99,
+      "payment": "Cash",
+      "amount": 1,
+      "timestamp": 1642683934185,
+      "id": 3
+    },
+    {
+      "total": 14.99,
+      "payment": "Cash",
+      "amount": 20,
+      "timestamp": 1642684645672,
+      "id": 4
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642684944231,
+      "id": 5
+    },
+    {
+      "total": 0.99,
+      "payment": "Bancontact",
+      "amount": 0.99,
+      "timestamp": 1642685053645,
+      "id": 6
+    },
+    {
+      "total": 2.99,
+      "payment": "Bancontact",
+      "amount": 2.99,
+      "timestamp": 1642685167643,
+      "id": 7
+    },
+    {
+      "total": 2.99,
+      "payment": "Bancontact",
+      "amount": 2.99,
+      "timestamp": 1642686480708,
+      "id": 8
+    },
+    {
+      "total": 2.99,
+      "payment": "Bancontact",
+      "amount": 2.99,
+      "timestamp": 1642686562011,
+      "id": 9
+    },
+    {
+      "total": 5.99,
+      "payment": "Bancontact",
+      "amount": 5.99,
+      "timestamp": 1642686762939,
+      "id": 10
+    },
+    {
+      "total": 49.99,
+      "payment": "Bancontact",
+      "amount": 49.99,
+      "timestamp": 1642686823291,
+      "id": 11
+    },
+    {
+      "total": 2.99,
+      "payment": "Cash",
+      "amount": 10,
+      "timestamp": 1642698490579,
+      "id": 12
+    },
+    {
+      "total": 2.99,
+      "payment": "Bancontact",
+      "amount": 2.99,
+      "timestamp": 1642698562495,
+      "id": 13
+    },
+    {
+      "total": 19.98,
+      "payment": "Bancontact",
+      "amount": 19.98,
+      "timestamp": 1642698595413,
+      "id": 14
+    },
+    {
+      "total": 49.99,
+      "payment": "Cash",
+      "amount": 100,
+      "timestamp": 1642698628283,
+      "id": 15
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642858975280,
+      "id": 16
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642858980575,
+      "id": 17
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859038479,
+      "id": 18
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859038479,
+      "id": 19
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859044552,
+      "id": 20
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859290927,
+      "id": 21
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859295244,
+      "id": 22
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859299550,
+      "id": 23
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859386263,
+      "id": 24
+    },
+    {
+      "total": 1,
+      "payment": "Bancontact",
+      "amount": 1,
+      "timestamp": 1642859391572,
+      "id": 25
+    },
+    {
+      "total": 1.5,
+      "payment": "Bancontact",
+      "amount": 1.5,
+      "timestamp": 1642859396863,
+      "id": 26
+    },
+    {
+      "total": 1.5,
+      "payment": "Bancontact",
+      "amount": 1.5,
+      "timestamp": 1642859401391,
+      "id": 27
+    },
+    {
+      "total": 1.5,
+      "payment": "Bancontact",
+      "amount": 1.5,
+      "timestamp": 1642860025487,
+      "id": 28
+    },
+    {
+      "total": 5.99,
+      "payment": "Bancontact",
+      "amount": 5.99,
+      "timestamp": 1642861071319,
+      "id": 29
+    },
+    {
+      "total": 9.99,
+      "payment": "Bancontact",
+      "amount": 9.99,
+      "timestamp": 1642861081481,
+      "id": 30
+    },
+    {
+      "total": 9.99,
+      "payment": "Bancontact",
+      "amount": 9.99,
+      "timestamp": 1642861088520,
+      "id": 31
+    },
+    {
+      "total": 49.99,
+      "payment": "Bancontact",
+      "amount": 49.99,
+      "timestamp": 1642861095068,
+      "id": 32
+    },
+    {
+      "total": 9.99,
+      "payment": "Bancontact",
+      "amount": 9.99,
+      "timestamp": 1642861098996,
+      "id": 33
+    },
+    {
+      "total": 49.99,
+      "payment": "Bancontact",
+      "amount": 49.99,
+      "timestamp": 1642861102450,
+      "id": 34
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642861105952,
+      "id": 35
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642861109037,
+      "id": 36
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642861112064,
+      "id": 37
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642861115063,
+      "id": 38
+    },
+    {
+      "total": 0.01,
+      "payment": "Bancontact",
+      "amount": 0.01,
+      "timestamp": 1642861117642,
+      "id": 39
+    },
+    {
+      "total": 5.99,
+      "payment": "Cash",
+      "amount": 20,
+      "timestamp": 1642861977582,
+      "id": 40
+    },
+    {
+      "total": 203.94,
+      "payment": "Bancontact",
+      "amount": 203.94,
+      "timestamp": 1671032835761,
+      "id": 41
+    },
+    {
+      "total": 7.5,
+      "payment": "Bancontact",
+      "amount": 7.5,
+      "timestamp": 1671033656977,
+      "id": 42
+    },
+    {
+      "total": 9.99,
+      "payment": "Bancontact",
+      "amount": 9.99,
+      "timestamp": 1671108917535,
+      "id": 43
+    },
+    {
+      "total": 2.99,
+      "payment": "Bancontact",
+      "amount": 2.99,
+      "timestamp": 1674474762164,
+      "id": 44
+    },
+    {
+      "total": 49.99,
+      "payment": "Bancontact",
+      "amount": 49.99,
+      "timestamp": 1674475032920,
+      "id": 45
+    },
+    {
+      "total": 4.5,
+      "payment": "Bancontact",
+      "amount": 4.5,
+      "timestamp": 1674478927363,
+      "id": 46
+    },
+    {
+      "total": 18.97,
+      "payment": "Bancontact",
+      "amount": 18.97,
+      "timestamp": 1674560408216,
+      "id": 47
+    }
+  ],
+  "salesItems": [
+    {
+      "saleId": 1,
+      "itemId": 7,
+      "quantity": 10
+    }
+  ]
+}
