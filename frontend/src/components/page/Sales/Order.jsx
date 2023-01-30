@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import useInput from '../../../hooks/input.hook'
 import Calculator from '../../common/Calculator'
 import Title from '../../common/Title'
 import CardItem from "./order/CardItem"
