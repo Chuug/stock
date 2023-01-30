@@ -4,7 +4,7 @@ import TopBarButton from "./misc/TopBarButton";
 
 const TopBar = () => {
 
-   const [pageName, setPageName] = useState('Home')
+   const [pageName, setPageName] = useState('Vente')
 
    const handleButton = (e) => {
       setPageName(e.target.innerHTML)

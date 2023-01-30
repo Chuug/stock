@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import useKeyboard from '../../../hooks/keyboard.hook'
+import useInput from '../../../hooks/input.hook'
 import Calculator from '../../common/Calculator'
 import Title from '../../common/Title'
 import CardItem from "./order/CardItem"
@@ -10,6 +10,7 @@ import StockService from "../../../services/stock-service"
 import { setFloat } from "../../../helpers/functions"
 import { toast } from 'react-toastify';
 import LastSales from "./order/LastSales"
+import { useOutletContext } from "react-router-dom"
 
 const Order = ({memStock, stockBarcode, setStockBarcode, stock, setStock, sales}) => {
 
@@ -20,7 +21,12 @@ const Order = ({memStock, stockBarcode, setStockBarcode, stock, setStock, sales}
    const [payment, setPayment] = useState(0)
    const [cashback, setCashback] = useState(0)
    const [finalize, setFinalize] = useState(false)
-   const input = useKeyboard()
+
+   const input = useOutletContext();
+
+   useEffect(() => {
+      console.log(input);
+   },[input])
 
    const resetOrder = () => {
       setOrder([])

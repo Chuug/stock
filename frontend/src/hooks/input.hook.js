@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useKeyboard = () => {
+const useInput = () => {
    const [input, setInput] = useState(null)
    const [mem, setMem] = useState('')
    const [type, setType] = useState('Scan')
@@ -15,11 +15,6 @@ const useKeyboard = () => {
                input: e.key,
                type: 'numpad'
             })
-         } else if(e.key === 'Delete' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-            setInput({
-               input: e.key,
-               type: e.key
-            })
          } else if (e.key === 'Backspace') {
             if(e.target.tagName !== 'INPUT') {
                setInput({
@@ -27,6 +22,11 @@ const useKeyboard = () => {
                   type: e.key
                })               
             }
+         } else if(e.key === 'Delete' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            setInput({
+               input: e.key,
+               type: e.key
+            })
          }
 
          // Setting scan string
@@ -55,4 +55,4 @@ const useKeyboard = () => {
    return input
 }
 
-export default useKeyboard
+export default useInput
